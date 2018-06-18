@@ -157,6 +157,18 @@ def test_generate_toc(mt):
 
     assert expected == mt.generate_toc(headers)
 
+def test_generate_toc_skip_first_header(mt):
+    headers = []
+    headers.append({'header': 'header 1 with spaces', 'level': 2, 'line': 1, 'tag': None, 'new_tag': 'header-1-with-spaces'})
+    headers.append({'header': 'header 2', 'level': 3, 'line': 4, 'tag': 'header-2', 'new_tag': None})
+    headers.append({'header': 'header 3', 'level': 3, 'line': 8, 'tag': 'header-3', 'new_tag': None})
+
+    expected = []
+    expected.append("* [header 2](#header-2)")
+    expected.append("* [header 3](#header-3)")
+
+    assert expected == mt.generate_toc(headers, skip_headers=1)
+
 
 def test_add_anchor_tags(mt):
     input_lines = []

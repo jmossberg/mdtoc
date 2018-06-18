@@ -130,11 +130,12 @@ class MdToc:
         return header_level_min
 
 
-    def generate_toc(self, headers):
+    def generate_toc(self, headers, skip_headers=0):
         toc = []
-        header_level_min = self.header_level_min(headers)
+        headers_in_toc = headers[skip_headers:len(headers)]
+        header_level_min = self.header_level_min(headers_in_toc)
 
-        for header in headers:
+        for header in headers_in_toc:
             toc_line = ""
             spaces = self.HEADER_LEVEL_SPACES_INDENT * (header['level'] - header_level_min)
             while len(toc_line) < spaces:
@@ -165,12 +166,12 @@ class MdToc:
         return output_lines
 
 
-    def add_toc(self, lines):
+    def add_toc(self, lines, skip_headers=0):
         output_lines = []
 
         headers = self.parse_headers(lines)
         headers_with_tags = self.generate_tags(headers)
-        toc = self.generate_toc(headers_with_tags)
+        toc = self.generate_toc(headers_with_tags, skip_headers)
         content_with_tags = self.add_anchor_tags(lines, headers_with_tags)
         output_lines = self.insert_toc(content_with_tags, toc)
 
@@ -241,24 +242,28 @@ article.md after:
 """
     parser = argparse.ArgumentParser(description=parser_help_text,formatter_class=argparse.RawTextHelpFormatter)
     parser.add_argument("filename", help="Markdown file to add table of contents to")
+    parser.add_argument("--skip_headers",
+                        help="number of headers in the beginning of the file to not include in the toc (default: 0)",
+                        default=0)
     args = parser.parse_args()
 
     filename = args.filename
+    skip_headers = int(args.skip_headers)
 
-    return filename
+    return filename, skip_headers
 
 def main():
     mt = MdToc()
     input_lines = []
     
-    filename = parse_command_line_arguments()
+    filename, skip_headers = parse_command_line_arguments()
     
     f_in = open(filename, 'r')
     for line in f_in:
         input_lines.append(line.rstrip('\n'))
     f_in.close()
     
-    output_lines = mt.add_toc(input_lines)
+    output_lines = mt.add_toc(input_lines, skip_headers)
     
     f_out = open(filename, 'w')
     for line in output_lines:
