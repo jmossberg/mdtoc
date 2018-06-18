@@ -33,7 +33,7 @@ article.md before running mdtoc:
 
 article.md after running mdtoc:
 
-    # Book title<a name="book-title"></a>
+    # Document title<a name="document-title"></a>
     ## Contents<a name="contents"></a>
     
     * [Header 1](#header-1)
