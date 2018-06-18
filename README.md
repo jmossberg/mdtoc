@@ -15,29 +15,32 @@ mdtoc cannot handle "closed" atx-style headers or headers using the underline sy
     Underlined header
     =================
 
+Command line argument `--skip_headers` can be used to skip the first `n` headers in the input file. This can be handy if the first header contains document title and should not be included in the table of contents.
+
 Example:
 
-    $ python3 mdtoc.py article.md
+    $ python3 mdtoc.py article.md --skip_headers 2
 
 article.md before running mdtoc:
 
-    # Contents
-    # Header 1
+    # Document title
+    ## Contents
+    ## Header 1
     Some text between header 1 and 2
     
-    ## Header 2
+    ### Header 2 
     Some text below header 2
 
 article.md after running mdtoc:
 
-    # Contents<a name="contents"></a>
+    # Book title<a name="book-title"></a>
+    ## Contents<a name="contents"></a>
     
-    * [Contents](#contents)
     * [Header 1](#header-1)
         * [Header 2](#header-2)
 
-    # Header 1<a name="header-1"></a>
+    ## Header 1<a name="header-1"></a>
     Some text between header 1 and 2
     
-    ## Header 2<a name="header-2></a>
+    ### Header 2<a name="header-2></a>
     Some text below header 2
