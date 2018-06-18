@@ -6,7 +6,7 @@ Example:
 
     $ python3 mdtoc.py article.md
 
-article.md before:
+article.md before running mdtoc:
 
     # Contents
     # Header 1
@@ -15,7 +15,7 @@ article.md before:
     ## Header 2
     Some text below header 2
 
-article.md after:
+article.md after running mdtoc:
 
     # Contents<a name="contents"></a>
     
