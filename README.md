@@ -2,11 +2,13 @@
 
 mdtoc will create a table of contents and insert below the header named Contents. Any existing lines in the Contents section will be removed. An error message will be emitted if no Contents header is found in the input file.
 
-mdtoc can handle headers with the following syntax:
+mdtoc can only handle Atx-style headers (see https://daringfireball.net/projects/markdown/syntax#header).
 
-    ## This is a header
+Example:
 
-mdtoc cannot handle headers with the the following syntax:
+    ## This is a atx-style header
+
+mdtoc cannot handle "closed" atx-style headers or headers using the underline syntax: 
 
     ## Closed header ##
 
