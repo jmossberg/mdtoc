@@ -15,8 +15,8 @@ import sys
 class MdToc:
 
     def __init__(self):
-        self.regexp_header = re.compile(r"^#{1,10} ")
-        self.regexp_anchor_tag = re.compile(r"<a name=.{1,50}></a>$")
+        self.regexp_header = re.compile(r"^#{1,6} ")
+        self.regexp_anchor_tag = re.compile(r"<a name=.{1,300}></a>$")
         self.HEADER_LEVEL_SPACES_INDENT = 4
         self.ANCHOR_TAG_PREFIX = '<a name="'
         self.ANCHOR_TAG_POSTFIX = '"></a>'
