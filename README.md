@@ -2,6 +2,17 @@
 
 mdtoc will create a table of contents and insert below the header named Contents. Any existing lines in the Contents section will be removed. An error message will be emitted if no Contents header is found in the input file.
 
+mdtoc can handle headers with the following syntax:
+
+    ## This is a header
+
+mdtoc cannot handle headers with the the following syntax:
+
+    ## Closed header ##
+
+    Underlined header
+    =================
+
 Example:
 
     $ python3 mdtoc.py article.md
