@@ -1,5 +1,7 @@
 # mdtoc - Markdown Table of Contents
 
+[![Build Status](https://travis-ci.org/jmossberg/mdtoc.svg?branch=master)](https://travis-ci.org/jmossberg/mdtoc)
+
 ## Overview
 mdtoc will create a table of contents and insert below the header named Contents. Any existing lines in the Contents section will be removed. An error message will be emitted if no Contents header is found in the input file.
 
