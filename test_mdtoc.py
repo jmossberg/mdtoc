@@ -30,11 +30,11 @@ def test_line_with_two_pounds_is_header(mt):
 
 
 def test_line_with_ten_pounds_is_header(mt):
-    assert mt.is_header("########## Introduction") is True
+    assert mt.is_header("###### Introduction") is True
 
 
 def test_line_with_eleven_pounds_is_not_header(mt):
-    assert mt.is_header("########### Introduction") is False
+    assert mt.is_header("####### Introduction") is False
 
 
 def test_compose_name_attribute(mt):

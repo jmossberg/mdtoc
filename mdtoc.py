@@ -30,9 +30,12 @@ class MdToc:
             return True
 
     def compose_name_attribute(self, header_text):
-        header_lowercase = header_text.lower()
-        header_no_spaces = header_lowercase.replace(' ', '-')
-        return header_no_spaces
+        name_attribute = header_text.lower()
+        name_attribute = name_attribute.replace('(', '')
+        name_attribute = name_attribute.replace(')', '')
+        name_attribute = name_attribute.replace('.', '')
+        name_attribute = name_attribute.replace(' ', '-')
+        return name_attribute 
 
     def compose_anchor_tag(self, anchor_name):
         return self.ANCHOR_TAG_PREFIX + anchor_name + self.ANCHOR_TAG_POSTFIX
