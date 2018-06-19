@@ -1,5 +1,6 @@
 # mdtoc - Markdown Table of Contents
 
+## Overview
 mdtoc will create a table of contents and insert below the header named Contents. Any existing lines in the Contents section will be removed. An error message will be emitted if no Contents header is found in the input file.
 
 mdtoc can only handle Atx-style headers (see https://daringfireball.net/projects/markdown/syntax#header).
@@ -17,7 +18,7 @@ mdtoc cannot handle "closed" atx-style headers or headers using the underline sy
 
 Command line argument `--skip_headers` can be used to skip the first `n` headers in the input file. This can be handy if the first header contains document title and should not be included in the table of contents.
 
-Example:
+## Example
 
     $ python3 mdtoc.py article.md --skip_headers 2
 
@@ -44,3 +45,9 @@ article.md after running mdtoc:
     
     ### Header 2<a name="header-2></a>
     Some text below header 2
+
+## Run tests
+
+    pip3 install pytest
+    pip3 install pytest-mock
+    python3 -m pytest test_mdtoc.py -v
