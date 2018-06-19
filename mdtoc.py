@@ -34,6 +34,8 @@ class MdToc:
         name_attribute = name_attribute.replace('(', '')
         name_attribute = name_attribute.replace(')', '')
         name_attribute = name_attribute.replace('.', '')
+        name_attribute = name_attribute.replace("'", "")
+        name_attribute = name_attribute.replace('/', '-')
         name_attribute = name_attribute.replace(' ', '-')
         return name_attribute 
 
