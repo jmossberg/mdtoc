@@ -37,6 +37,10 @@ class MdToc:
         name_attribute = name_attribute.replace("'", "")
         name_attribute = name_attribute.replace('/', '-')
         name_attribute = name_attribute.replace(' ', '-')
+        name_attribute = name_attribute.replace('å', 'a')
+        name_attribute = name_attribute.replace('ä', 'a')
+        name_attribute = name_attribute.replace('ö', 'o')
+        name_attribute = name_attribute.replace('&', 'and')
         return name_attribute 
 
     def compose_anchor_tag(self, anchor_name):

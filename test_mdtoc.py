@@ -44,6 +44,12 @@ def test_compose_name_attribute(mt):
 def test_anchor_name_with_spaces(mt):
     assert mt.compose_name_attribute("Introduction to python") == "introduction-to-python"
 
+def test_anchor_name_with_swedish_characters(mt):
+    assert mt.compose_name_attribute("Introduction to åäö") == "introduction-to-aao"
+
+def test_anchor_name_with_ampersand(mt):
+    assert mt.compose_name_attribute("Introduction to topic a & topic b") == "introduction-to-topic-a-and-topic-b"
+
 
 def test_compose_anchor_tag(mt):
     assert mt.compose_anchor_tag("introduction-to-python") == \
