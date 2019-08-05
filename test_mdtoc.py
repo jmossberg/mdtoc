@@ -409,29 +409,3 @@ def test_insert_toc_no_contents(mt, mocker):
 
     print.assert_called_with('ERROR: Document does not contain header with name Contents')
     sys.exit.assert_called()
-
-def test_remove_code_highlight(mt):
-
-    input_lines=string_2_list(remove_indent("""
-    Text before highlight
-
-    {% highlight cpp %}
-    int start() {
-      std::cout << "Name: ";
-      std::getline(std::cin, name_);
-    }
-    {% endhighlight %}
-    
-    Text after highlight
-    """))
-
-    expected_output_lines = string_2_list(remove_indent("""
-    Text before highlight
-
-
-    Text after highlight
-    """))
-
-    output_lines = mt.remove_code_highlights(input_lines)
-
-    assert output_lines == expected_output_lines
