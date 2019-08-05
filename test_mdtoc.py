@@ -85,6 +85,30 @@ def test_parse_headers(mt):
 
     assert o == expected
 
+def test_parse_headers_when_code_highlight_present(mt):
+    i = []
+    i.append("## header 1 with spaces")
+    i.append("")
+    i.append("bla bla bla")
+    i.append("{% highlight cpp %}")
+    i.append("## comment")
+    i.append("int start() {")
+    i.append("  std::cout << 'Name: ';")
+    i.append("  std::getline(std::cin, name_);")
+    i.append("}")
+    i.append("{% endhighlight %}")
+    i.append("### header 2")
+    i.append("")
+    i.append("word word word")
+
+    expected = []
+    expected.append({'header': 'header 1 with spaces', 'level': 2, 'line': 1, 'tag': None})
+    expected.append({'header': 'header 2', 'level': 3, 'line': 11, 'tag': None})
+
+    o = mt.parse_headers(i)
+
+    assert o == expected
+
 def test_parse_headers_with_existing_tag(mt):
     i = []
     i.append("## header 1 with spaces")
@@ -257,6 +281,50 @@ def test_add_toc(mt):
     expect.append('## header 1 with spaces<a name="header-1-with-spaces"></a>')
     expect.append('')
     expect.append('bla bla bla')
+    expect.append('### header 2<a name="header-2"></a>')
+    expect.append('')
+    expect.append('word word word')
+
+    output_lines = mt.add_toc(input_lines)
+
+    print(output_lines)
+
+    assert expect == output_lines
+
+def test_add_toc_when_code_highlight_present(mt):
+    input_lines = []
+    input_lines.append("## Contents")
+    input_lines.append("## header 1 with spaces")
+    input_lines.append("")
+    input_lines.append("bla bla bla")
+    input_lines.append("{% highlight cpp %}")
+    input_lines.append("## comment")
+    input_lines.append("int start() {")
+    input_lines.append("  std::cout << 'Name: ';")
+    input_lines.append("  std::getline(std::cin, name_);")
+    input_lines.append("}")
+    input_lines.append("{% endhighlight %}")
+    input_lines.append("### header 2")
+    input_lines.append("")
+    input_lines.append("word word word")
+
+    expect = []
+    expect.append('## Contents<a name="contents"></a>')
+    expect.append('')
+    expect.append("* [Contents](#contents)")
+    expect.append("* [header 1 with spaces](#header-1-with-spaces)")
+    expect.append("    * [header 2](#header-2)")
+    expect.append('')
+    expect.append('## header 1 with spaces<a name="header-1-with-spaces"></a>')
+    expect.append('')
+    expect.append('bla bla bla')
+    expect.append("{% highlight cpp %}")
+    expect.append("## comment")
+    expect.append("int start() {")
+    expect.append("  std::cout << 'Name: ';")
+    expect.append("  std::getline(std::cin, name_);")
+    expect.append("}")
+    expect.append("{% endhighlight %}")
     expect.append('### header 2<a name="header-2"></a>')
     expect.append('')
     expect.append('word word word')

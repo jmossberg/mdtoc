@@ -98,15 +98,22 @@ class MdToc:
 
     def parse_headers(self, lines):
         toc = []
+        code_highlight_section = False
 
         for index, line in enumerate(lines):
             line_number = index + 1
-            if self.is_header(line):
+
+            if line.startswith("{% highlight"):
+                code_highlight_section = True
+
+            if not code_highlight_section and self.is_header(line):
                 header = self.parse_header(line, line_number)
                 toc.append(header)
 
-        return toc
+            if line.startswith("{% endhighlight %}"):
+                code_highlight_section = False
 
+        return toc
 
     def generate_non_duplicate_name_attribute(self, base_tag, tags):
         tag = base_tag
@@ -115,7 +122,6 @@ class MdToc:
             tag = base_tag + '-' + str(counter)
             counter += 1
         return tag
-
 
     def generate_tags(self, headers):
         tags = []
