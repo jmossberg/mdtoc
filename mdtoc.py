@@ -213,6 +213,23 @@ class MdToc:
 
         return output
 
+    def remove_code_highlights(self, input_lines):
+        code_highlight_section = False
+        output_lines = []
+
+        for input_line in input_lines:
+            if input_line.startswith("{% highlight"):
+                code_highlight_section = True
+
+            if not code_highlight_section:
+                output_lines.append(input_line)
+
+            if input_line.startswith("{% endhighlight %}"):
+                code_highlight_section = False
+
+        return output_lines
+
+
 def parse_command_line_arguments():
 
     parser_help_text="""Add table of contents to markdown file
